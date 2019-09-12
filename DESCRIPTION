@@ -1,0 +1,21 @@
+Package: maree
+Title: maree
+Description: Provides convenience tools for working with David Flater's xtide application.
+Version: 0.1
+Depends:
+    R (>= 3.5)
+Imports:
+    rlang,
+    magrittr,
+    tibble,
+    dplyr,
+    tidyr,
+    readr,
+    xml2,
+    rvest
+URL: https://github.com/BigelowLab/maree
+Encoding: UTF-8
+Maintainer: Ben Tupper <btupper@bigelow.org>
+Author: Ben Tupper <btupper@bigelow.org>
+License: MIT + file LICENSE
+RoxygenNote: 6.1.1

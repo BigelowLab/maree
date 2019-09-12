@@ -1,0 +1,19 @@
+#' marée: tools for working with a local installation of
+#' David Flater's [xtide](https://flaterco.com/xtide/xtide.html)
+#'
+#' There are a number of nice tide packages of which [rtide]( https://CRAN.R-project.org/package=rtide)
+#' is one I have enjoyed often. The [marée](https://translate.google.com/#view=home&op=translate&sl=en&tl=fr&text=tide)
+#'  package really doesn't add any functionality.  It does, however, work the
+#'  command line tools for a local installation of [xtide](https://flaterco.com/xtide/xtide.html)
+#'#'
+#' \describe{
+#'   \item{list station locations}{provide a list of currently available reference stations and substations}
+#'   \item{spawn common `tide` commands}{Provides a convenience wrapper around the `tide` command line tool }
+#'   \item{read various `tide` formats}{Reads a variety of tides output formats}
+#'   \item{updates}{provides functionality to update the harmonics file (which is updated annually)}
+#' }
+#' @docType package
+#' @name maree
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
+NULL
