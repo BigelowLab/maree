@@ -2,12 +2,13 @@
 #'
 #' @export
 #' @param filename character or connection
+#' @param tz character, the time zone for the location and time requested
 #' @return list with
 #' \itemize{
 #'    \item{file, the name of the output file}
 #'    \item{data, tibble of data, possible with 0 rows}
 #' }
-read_raw_mode <- function(filename){
+read_raw_mode <- function(filename, tz = Sys.timezone()){
   origin <- as.POSIXct("1970-01-01 00:00Z")
   d <- suppressMessages(readr::read_table(filename[1],
     col_names = c("datetime", "height"))) %>%
@@ -20,6 +21,7 @@ read_raw_mode <- function(filename){
 #'
 #' @export
 #' @param filename character or connection
+#' @param tz character, the time zone for the location and time requested
 #' @return list with
 #' \itemize{
 #'    \item{location, the name of the location}
@@ -30,7 +32,7 @@ read_raw_mode <- function(filename){
 #'    \item{sun, tibble of sun rise/set, possibly with 0 rows}
 #'    \item{tide, tibble of tide height and stage, possibly with 0 rows}
 #' }
-read_plain_mode <- function(filename){
+read_plain_mode <- function(filename, tz = Sys.timezone()){
 
   origin <- as.POSIXct("1970-01-01 00:00Z")
   txt <- readLines(filename[1], n = 2)
@@ -39,12 +41,14 @@ read_plain_mode <- function(filename){
   colpos <- readr::fwf_positions(start = c(1, 27),
                                end = c(24, NA),
                                col_names = c("datetime", "event"))
+
   d <- suppressMessages(
       readr::read_fwf(filename[1],
                       skip = 4,
                       col_positions = colpos)) %>%
-      dplyr::mutate(datetime = as.POSIXct(.data$datetime, origin = origin )
-      )
+      dplyr::mutate(datetime = as.POSIXct(.data$datetime, origin = origin,
+                                          format = "%Y-%m-%d %I:%M %p",
+                                          tz = tz ))
 
   moon <- d %>%
     dplyr::filter(grepl("Moon", .data$event))

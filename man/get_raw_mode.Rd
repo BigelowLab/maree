@@ -4,9 +4,14 @@
 \alias{get_raw_mode}
 \title{Retrieve the raw tide values for a specified location}
 \usage{
-get_raw_mode(location = "Portland", time = c(Sys.time(), Sys.time() + 4
-  * (24 * 3600)), step = "01:00", ofile = tempfile(),
-  compress = FALSE, app = Sys.which("/opt/bin/tide"))
+get_raw_mode(
+  location = "Portland",
+  time = c(Sys.time(), Sys.time() + 4 * (24 * 3600)),
+  step = "01:00",
+  ofile = tempfile(),
+  compress = FALSE,
+  app = Sys.which("/opt/bin/tide")
+)
 }
 \arguments{
 \item{location}{the name of the location}

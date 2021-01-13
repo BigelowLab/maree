@@ -4,10 +4,12 @@
 \alias{read_plain_mode}
 \title{Read plain mode data}
 \usage{
-read_plain_mode(filename)
+read_plain_mode(filename, tz = Sys.timezone())
 }
 \arguments{
 \item{filename}{character or connection}
+
+\item{tz}{character, the time zone for the location and time requested}
 }
 \value{
 list with

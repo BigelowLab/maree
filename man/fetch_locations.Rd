@@ -4,8 +4,12 @@
 \alias{fetch_locations}
 \title{Retrieve an online listing of stations}
 \usage{
-fetch_locations(uri = "https://flaterco.com/xtide/locations.html",
-  decimal = TRUE, pattern = NA, ...)
+fetch_locations(
+  uri = "https://flaterco.com/xtide/locations.html",
+  decimal = TRUE,
+  pattern = NA,
+  ...
+)
 }
 \arguments{
 \item{uri}{character, url of the online locations listing}

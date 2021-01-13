@@ -4,9 +4,13 @@
 \alias{get_plain_mode}
 \title{Retrieve the tide events for a specified location}
 \usage{
-get_plain_mode(location = "Portland", time = c(Sys.time(), Sys.time() +
-  4 * (24 * 3600)), ofile = tempfile(), compress = FALSE,
-  app = Sys.which("/opt/bin/tide"))
+get_plain_mode(
+  location = "Portland",
+  time = c(Sys.time(), Sys.time() + 4 * (24 * 3600)),
+  ofile = tempfile(),
+  compress = FALSE,
+  app = Sys.which("/opt/bin/tide")
+)
 }
 \arguments{
 \item{location}{the name of the location}

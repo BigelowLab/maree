@@ -3,7 +3,6 @@
 \docType{package}
 \name{maree}
 \alias{maree}
-\alias{maree-package}
 \title{marée: tools for working with a local installation of
 David Flater's [xtide](https://flaterco.com/xtide/xtide.html)}
 \description{

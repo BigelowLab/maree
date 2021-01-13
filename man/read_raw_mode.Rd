@@ -4,10 +4,12 @@
 \alias{read_raw_mode}
 \title{Read raw mode data}
 \usage{
-read_raw_mode(filename)
+read_raw_mode(filename, tz = Sys.timezone())
 }
 \arguments{
 \item{filename}{character or connection}
+
+\item{tz}{character, the time zone for the location and time requested}
 }
 \value{
 list with
