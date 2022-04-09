@@ -59,7 +59,7 @@ get_raw_mode <- function(location = 'Portland',
     app = Sys.which("/opt/bin/tide")
   }
   args <- c(
-    "-l", location[1],
+    "-l", shQuote(location[1]),
     "-b", shQuote(format(time[1], "%Y-%m-%d %H:%M")),
     "-e", shQuote(format(time[2], "%Y-%m-%d %H:%M")),
     "-s", step[1],
