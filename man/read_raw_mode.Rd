@@ -4,7 +4,7 @@
 \alias{read_raw_mode}
 \title{Read raw mode data}
 \usage{
-read_raw_mode(filename, tz = Sys.timezone())
+read_raw_mode(filename, tz = "UTC")
 }
 \arguments{
 \item{filename}{character or connection}

@@ -8,24 +8,34 @@ get_raw_mode(
   location = "Portland",
   time = c(Sys.time(), Sys.time() + 4 * (24 * 3600)),
   step = "01:00",
+  utc = TRUE,
   ofile = tempfile(),
   compress = FALSE,
-  app = Sys.which("/opt/bin/tide")
+  app = Sys.which("/opt/bin/tide"),
+  append = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
 \item{location}{the name of the location}
 
 \item{time}{2 element vector of POSIXct time to start and stop start <= time < stop.
-Defaults to [now, now + 4 days]}
+Defaults to [now, now + 4 days] (assumed UTC if \code{utc = TRUE})}
 
 \item{step}{character, time step as 'HH:MM'. Defaults tp "01:00"}
+
+\item{utc}{logical if TRUE then return values in UTC, otherwise local time}
 
 \item{ofile}{character, the output filename. Defaults to \code{tempfile()}}
 
 \item{compress}{logical, if TRUE compress the file. Defaults to TRUE.}
 
 \item{app}{the name of the application. Defaults to \code{Sys.which("/opt/bin/tide")}}
+
+\item{append}{logical, if TRUE append to exisiting output file (if any).  Otherwise
+overwrite existing output file.}
+
+\item{verbose}{logical if TRUE print the command run}
 }
 \value{
 list with

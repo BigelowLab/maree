@@ -32,11 +32,15 @@ argument_lut <- function(){
 #' @export
 #' @param location the name of the location
 #' @param time 2 element vector of POSIXct time to start and stop start <= time < stop.
-#'        Defaults to [now, now + 4 days]
+#'        Defaults to [now, now + 4 days] (assumed UTC if \code{utc = TRUE})
 #' @param step character, time step as 'HH:MM'. Defaults tp "01:00"
 #' @param ofile character, the output filename. Defaults to \code{tempfile()}
 #' @param compress logical, if TRUE compress the file. Defaults to TRUE.
+#' @param utc logical if TRUE then return values in UTC, otherwise local time
 #' @param app the name of the application. Defaults to \code{Sys.which("/opt/bin/tide")}
+#' @param append logical, if TRUE append to exisiting output file (if any).  Otherwise
+#'   overwrite existing output file.
+#' @param verbose logical if TRUE print the command run
 #' @return list with
 #' \itemize{
 #'    \item{location, the name of the location}
@@ -46,26 +50,39 @@ argument_lut <- function(){
 get_raw_mode <- function(location = 'Portland',
                          time = c(Sys.time(), Sys.time() + 4*(24 * 3600)),
                          step = '01:00',
+                         utc = TRUE,
                          ofile = tempfile(),
                          compress = FALSE,
-                         app = Sys.which("/opt/bin/tide")){
+                         app = Sys.which("/opt/bin/tide"),
+                         append = FALSE,
+                         verbose = FALSE){
 
   if (FALSE){
     location = 'Portland'
     time = c(Sys.time(), Sys.time() + 4*(24 * 3600))
     step = '01:00'
+    utc = TRUE
     ofile = tempfile()
     compress = FALSE
     app = Sys.which("/opt/bin/tide")
+    verbose = TRUE
+    append = FALSE
   }
+  
+  if (append == FALSE && file.exists(ofile)) ok <- unlink(ofile, force = TRUE)
+  
   args <- c(
     "-l", shQuote(location[1]),
     "-b", shQuote(format(time[1], "%Y-%m-%d %H:%M")),
-    "-e", shQuote(format(time[2], "%Y-%m-%d %H:%M")),
+    "-e", shQuote(format(time[2], "%Y-%m-%d %H:%M")))
+  if (utc) args <- c(args, "-z")
+  args <- c(args, 
     "-s", step[1],
     "-f", "t",
     "-m", "r",
     "-o", ofile[1])
+
+  if (verbose) cat(sprintf("%s %s", app[1], paste(args, collapse = " ")), "\n")
   ok <- system2(app[1], args)
 
   if (ok == 0){
@@ -99,6 +116,10 @@ get_raw_mode <- function(location = 'Portland',
 #' @param ofile character, the output filename. Defaults to \code{tempfile()}
 #' @param compress logical, if TRUE compress the file. Defaults to TRUE.
 #' @param app the name of the application. Defaults to \code{Sys.which("/opt/bin/tide")}
+#' @param utc logical if TRUE then return values in UTC, otherwise local time
+#' @param append logical, if TRUE append to exisiting output file (if any).  Otherwise
+#'   overwrite existing output file.
+#' @param verbose logical if TRUE print the command run
 #' @return list with
 #' \itemize{
 #'    \item{location, the name of the location}
@@ -111,7 +132,10 @@ get_plain_mode <- function(location = 'Portland',
                          time = c(Sys.time(), Sys.time() + 4*(24 * 3600)),
                          ofile = tempfile(),
                          compress = FALSE,
-                         app = Sys.which("/opt/bin/tide")){
+                         app = Sys.which("/opt/bin/tide"),
+                         utc = TRUE,
+                         append = FALSE,
+                         verbose = TRUE){
 
   if (FALSE){
     location = 'Portland'
@@ -119,15 +143,21 @@ get_plain_mode <- function(location = 'Portland',
     ofile = tempfile()
     compress = FALSE
     app = Sys.which("/opt/bin/tide")
+    utc = TRUE
+    append = FALSE
+    verbose = TRUE
   }
-  origin <- as.POSIXct("1970-01-01 00:00Z")
+  if (append == FALSE && file.exists(ofile)) ok <- unlink(ofile, force = TRUE)
   args <- c(
     "-l", location[1],
     "-b", shQuote(format(time[1], "%Y-%m-%d %H:%M")),
-    "-e", shQuote(format(time[2], "%Y-%m-%d %H:%M")),
+    "-e", shQuote(format(time[2], "%Y-%m-%d %H:%M")))
+  if (utc) args <- c(args, "-z")
+  args <- c(args, 
     "-f", "t",
     "-m", "p",
     "-o", ofile[1])
+  if (verbose) cat(sprintf("%s %s", app[1], paste(args, collapse = " ")), "\n")
   ok <- system2(app[1], args)
 
   if (ok == 0){

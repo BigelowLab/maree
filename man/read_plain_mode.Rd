@@ -4,7 +4,7 @@
 \alias{read_plain_mode}
 \title{Read plain mode data}
 \usage{
-read_plain_mode(filename, tz = Sys.timezone())
+read_plain_mode(filename, tz = "UTC")
 }
 \arguments{
 \item{filename}{character or connection}

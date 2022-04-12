@@ -9,7 +9,10 @@ get_plain_mode(
   time = c(Sys.time(), Sys.time() + 4 * (24 * 3600)),
   ofile = tempfile(),
   compress = FALSE,
-  app = Sys.which("/opt/bin/tide")
+  app = Sys.which("/opt/bin/tide"),
+  utc = TRUE,
+  append = FALSE,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -23,6 +26,13 @@ Defaults to [now, now + 4 days]}
 \item{compress}{logical, if TRUE compress the file. Defaults to TRUE.}
 
 \item{app}{the name of the application. Defaults to \code{Sys.which("/opt/bin/tide")}}
+
+\item{utc}{logical if TRUE then return values in UTC, otherwise local time}
+
+\item{append}{logical, if TRUE append to exisiting output file (if any).  Otherwise
+overwrite existing output file.}
+
+\item{verbose}{logical if TRUE print the command run}
 }
 \value{
 list with

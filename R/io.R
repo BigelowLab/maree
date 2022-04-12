@@ -8,11 +8,11 @@
 #'    \item{file, the name of the output file}
 #'    \item{data, tibble of data, possible with 0 rows}
 #' }
-read_raw_mode <- function(filename, tz = Sys.timezone()){
-  origin <- as.POSIXct("1970-01-01 00:00Z")
+read_raw_mode <- function(filename, tz = "UTC"){
+  origin <- as.POSIXct("1970-01-01 00:00Z", tz = 'UTC')
   d <- suppressMessages(readr::read_table(filename[1],
     col_names = c("datetime", "height"))) %>%
-    dplyr::mutate(datetime = as.POSIXct(.data$datetime, origin = origin))
+    dplyr::mutate(datetime = as.POSIXct(.data$datetime, origin = origin, tz = tz))
   list(file = filename,
        data = d)
 }
@@ -32,13 +32,13 @@ read_raw_mode <- function(filename, tz = Sys.timezone()){
 #'    \item{sun, tibble of sun rise/set, possibly with 0 rows}
 #'    \item{tide, tibble of tide height and stage, possibly with 0 rows}
 #' }
-read_plain_mode <- function(filename, tz = Sys.timezone()){
+read_plain_mode <- function(filename, tz = "UTC"){
 
-  origin <- as.POSIXct("1970-01-01 00:00Z")
+  origin <- as.POSIXct("1970-01-01 00:00Z", tz = "UTC")
   txt <- readLines(filename[1], n = 2)
   location <- txt[[1]]
   latlon <- latlon_as_decimal(txt[[2]])
-  colpos <- readr::fwf_positions(start = c(1, 27),
+  colpos <- readr::fwf_positions(start = c(1, 25),
                                end = c(24, NA),
                                col_names = c("datetime", "event"))
 

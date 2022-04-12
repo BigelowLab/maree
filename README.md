@@ -141,7 +141,7 @@ ggplot(x, aes(x=datetime, y = height, colour = step, size = step)) +
   scale_colour_manual(breaks = c("10-minute", "hour"), values = c("orange", "black")) +
   scale_size_manual(breaks = c("10-minute", "hour"), values = c(2,1))
 ```
-![](inst/Portland-tides.png)
+![](inst/images/Portland-tides.png)
 
 They are quite close, so keep in mind that an hourly estimate is often sufficient for modeling purposes.
 
