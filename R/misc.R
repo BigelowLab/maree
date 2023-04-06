@@ -60,8 +60,8 @@ fetch_locations <- function(uri = "https://flaterco.com/xtide/locations.html",
     }
     N <- as.numeric(grepl("N", x$Latitude, fixed = TRUE))
     N[N <= 0] <- -1
-    W <- grepl("W", x$Longitude, fixed = TRUE)
-    W[W <= 0] <- -1
+    W <- as.numeric(grepl("W", x$Longitude, fixed = TRUE))
+    W[W > 0] <- -1
     x <- x %>%
       dplyr::mutate(Latitude = as_decimal(.data$Latitude) * N,
                     Longitude = as_decimal(.data$Longitude) * W)
